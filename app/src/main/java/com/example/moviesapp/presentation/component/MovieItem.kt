@@ -119,10 +119,6 @@ fun MovieItem(
                     .background(MaterialTheme.colorScheme.primaryContainer),
                 contentAlignment = Alignment.Center
             ) {
-                //Image(
-                //    painter = painterResource(R.drawable.cat_1_1),
-                //    contentDescription = null
-                //)
                 Icon(
                     imageVector = Icons.Rounded.ImageNotSupported,
                     contentDescription = movie.title
@@ -150,10 +146,6 @@ fun MovieItem(
                     top = 4.dp
                 )
         ) {
-//            RatingBar(
-//                starsModifier = Modifier.size(18.dp),
-//                rating = movie.vote_average / 2
-//            )
             RatingBar(
                 starsModifier = Modifier.size(18.dp),
                 rating = movie.vote_average?.div(2) ?: 0.0
