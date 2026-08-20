@@ -25,6 +25,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -162,8 +163,7 @@ fun DetailsScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                     ) {
-
-                        state.movie.title?.let {
+                        state.movie.title.let {
                             Text(
                                 text = it,
                                 fontSize = 18.sp,
@@ -171,31 +171,59 @@ fun DetailsScreen(
                                 modifier = Modifier
                                     .padding(start = 16.dp)
                             )
-                            Spacer(modifier = Modifier.height(16.dp))
-                            RatingBar()
-                            Spacer(modifier = Modifier.height(16.dp))
-                            state.movie.original_language?.let { text ->
-                                Text(
-                                    text = text,
-                                    fontSize = 18.sp,
-                                    fontWeight = FontWeight.SemiBold,
-                                    modifier = Modifier
-                                        .padding(start = 16.dp)
-                                )
-                            }
-                            Spacer(modifier = Modifier.height(16.dp))
+                        }
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp)
+                        ) {
+                            RatingBar(
+                                starsModifier = Modifier.size(18.dp),
+                                rating = movie.vote_average / 2
+                            )
                             Text(
-                                text = "rating  $state.movie.vote_count",
+                                text = movie.vote_average.toString().take(3),
+                                fontSize = 14.sp,
+                                color = Color.LightGray,
+                                modifier = Modifier
+                                    .padding(start = 4.dp)
                             )
                         }
+                        Spacer(modifier = Modifier.height(12.dp))
+                        Text(
+                            text = "Language" + movie.original_language,
+                            modifier = Modifier.padding(start = 16.dp)
+                        )
+                        Spacer(modifier = Modifier.height(10.dp))
+                        Text(
+                            text = "Release date:" + movie.release_date,
+                            modifier = Modifier.padding(start = 16.dp)
+                        )
+                        Spacer(modifier = Modifier.height(10.dp))
+                        Text(
+                            text = movie.vote_count.toString() + "votes",
+                            modifier = Modifier.padding(start = 16.dp)
+                        )
                     }
                 }
             }
-            state.movie?.overview?.let {
+            Spacer(modifier = Modifier.height(32.dp))
+            Text(
+                text = "Overview",
+                modifier = Modifier.padding(start = 16.dp),
+                fontSize = 19.sp,
+                fontWeight = FontWeight.SemiBold
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            state.movie?.let { movie ->
                 Text(
-                    text = it
+                    text = movie.overview,
+                    modifier = Modifier.padding(start = 16.dp),
+                    fontSize = 16.sp
                 )
             }
+            Spacer(modifier = Modifier.height(32.dp))
         }
     }
 }

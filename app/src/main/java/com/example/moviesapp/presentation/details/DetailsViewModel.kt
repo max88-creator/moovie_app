@@ -1,5 +1,7 @@
 package com.example.moviesapp.presentation.details
 
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -20,7 +22,6 @@ class DetailsViewModel @Inject constructor(
 ) : ViewModel() {
     private val _state = MutableStateFlow(value = DetailsState())
     val state = _state.asStateFlow()
-
     private val movieId = savedStateHandle.get(
         key = "movieId"
     ) ?: -1
